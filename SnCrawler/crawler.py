@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-#This is a minimal crawler specially made for web scanning, in a way that it would only visit a single page only once, 
+#This is a minimal crawler specially made for web scanning, in a way that it would only visit a single page only once,
 #even if it has different parameters
 #Eg, if there are two hrefs="/?id=1" & "/?id=2", it would only visit one of them, and then add it to our list
 #As it is a web scanner and it only needs to crawl a site for different GET parameters, thus visiting them only once would
@@ -13,7 +13,7 @@ import requests
 #I know the code quality is kinda bad and hackish, but that's how i write ;)
 
 #So at every page, it will get all the <a> tags, then make a hash table of them, and if there are two 'a'
-#tags with different parameters, it would store it like this 
+#tags with different parameters, it would store it like this
 #{url: [{param1 : val1, param2 : Val2}, {param3 : val3, param1 : val1}]}
 #Then at the end it would parse them into the normal GET and return to us
 
@@ -26,7 +26,7 @@ def joinParsedGet(urls): #Turning a list of Hash tabled URL's into normal GET on
 			parsed.append(url) #Just add
 		else:
 			for eachUrl in urls[url]:
-				parsed.append(url + "?" +"&".join([X+"="+eachUrl[X] for X in eachUrl]))			
+				parsed.append(url + "?" +"&".join([X+"="+eachUrl[X] for X in eachUrl]))
 	return parsed
 
 def joinParsedPost(urls):
@@ -89,7 +89,7 @@ def mergeParsedPost(mainParsed, newUrls, urlAndParams):
 						ADDED = True
 						mainParsed[url].append(param)#Add it to the main List too
 
-def addSlashAfterDomain(url): #A function to handle some domain names like "https://domain.com?param=val", ie with no 
+def addSlashAfterDomain(url): #A function to handle some domain names like "https://domain.com?param=val", ie with no
 	parsed = url.split("?")[0].split("/")#"/" after the domain, which the crawler might not handle properly
 	if "?" in url: #If it has parameters
 		if len(parsed) <= 3: #if there is not slash after domain name
@@ -168,7 +168,7 @@ def addForm(postF, formInputs, url):#Add a form into a dict
 def findForms(parsedHtml, url, subdomains=False):#Find's all the forms in a webpage, GET and POST both and then add them in a list
 	postF = {}#Dict for POST fomrms
 	getF = {}#Dict for GET forms
-	sslValue = "https://" if url.startswith("https://") else "http://" 
+	sslValue = "https://" if url.startswith("https://") else "http://"
 	baseDomain = getCurrentDomain(url) #Current domain
 	mainDomain = getMainDomain(url)#Main Domain
 	basePath = getCurrentPath(url)#Current path
@@ -234,7 +234,7 @@ def isExcluded(excluded, url):
 			return True
 	return False
 
-def crawl(s,baseUrl, depth=3, subdomains=False, Debug=False, excluded=[]):#The main crawler
+def crawl(s,baseUrl, depth=3, subdomains=False, Debug=False, excluded=[],js=False):#The main crawler
 	excluded = [X.split("?")[0] for X in excluded]
 	baseUrl =  normalizeUrl(addSlashAfterDomain(baseUrl.lower()))#A simple bfs type approach
 	if not isUp(baseUrl):
