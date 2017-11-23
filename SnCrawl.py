@@ -44,7 +44,7 @@ else: excluded = []
 outFile = args.output
 
 
-get, post = crawler.crawl(s, url,depth=depth, subdomains=args.subdomains, Debug=args.verbose, excluded=excluded)
+get, post = crawler.crawl(s, url,depth=depth, subdomains=args.subdomains, Debug=args.verbose, excluded=excluded, js=args.js)
 
 print "\n"
 print "Crawler completed"
