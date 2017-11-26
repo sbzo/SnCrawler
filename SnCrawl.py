@@ -44,7 +44,7 @@ else: excluded = []
 outFile = args.output
 
 
-get, post = crawler.crawl(s, url,depth=depth, subdomains=args.subdomains, Debug=args.verbose, excluded=excluded, js=args.js)
+get, post, jscript = crawler.crawl(s, url,depth=depth, subdomains=args.subdomains, Debug=args.verbose, excluded=excluded, js=args.js)
 
 print "\n"
 print "Crawler completed"
@@ -61,9 +61,16 @@ for each in post:
 	print "POST Form: %s"%each[0]
 	print "Form Data: %s"%each[1]
 
+print "\n\n"
+print "="*40
+print "JS files"
+for each in jscript:
+	print each
+
 if outFile is not None:
 	f = open(outFile, "w")
 	jsonOut = {"GET": get}
 	jsonOut["POST"] = postForJson(post)
+	jsonOut["JS"] = jscript
 	f.write(json.dumps(jsonOut, indent=4))
 	f.close()
