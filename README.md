@@ -56,7 +56,7 @@ To look at all the available options, just run the file with `--help`
 $ python SnCrawl.py --help
 usage: SnCrawl.py [-h] [-w "https://domain.com/"] [-d DEPTH]
                   [-c "cooke1=val1; cookie2=val2"] [--subdomains]
-                  [-e "http://domain.com/logout"] [-v]
+                  [-e "http://domain.com/logout"] [-v] [--js]
                   [-o /home/user/saveLocation.txt]
 
 optional arguments:
@@ -73,6 +73,7 @@ optional arguments:
   -o /home/user/saveLocation.txt, --output /home/user/saveLocation.txt
                         The output file where you want to write the scraped
                         URL's(in Json)
+  -j, --js              Include the .js files
 
 required arguments:
   -w "http(s)://domain.com/", --website "http(s)://domain.com/"
